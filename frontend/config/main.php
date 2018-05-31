@@ -8,15 +8,15 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
-    'name' => 'FindingTailor',
+     'name' => 'FindingTailor',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
-    'homeUrl' => '/findingtailor2',
+    'homeUrl' => '/advanced',
     'components' => [
-        'request'=>[
-          'csrfParam' => '_crsf-frontend',
-          'baseUrl' => '/findingtailor2',
+        'request' => [
+            'csrfParam' => '_csrf-frontend',
+             'baseUrl' => '/advanced',
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -39,15 +39,14 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-
-        'urlManager' => [
-            'baseUrl' => '/findingtailor2',
+        
+         'urlManager' => [
+            'baseUrl' => '/advanced',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-
     ],
     'params' => $params,
 ];

@@ -5,7 +5,7 @@ use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use common\models\AdminLoginForm;
+use common\models\LoginForm;
 
 /**
  * Site controller
@@ -13,7 +13,7 @@ use common\models\AdminLoginForm;
 class SiteController extends Controller
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function behaviors()
     {
@@ -42,7 +42,7 @@ class SiteController extends Controller
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function actions()
     {
@@ -74,10 +74,12 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
-        $model = new AdminLoginForm();
+        $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
+            $model->password = '';
+
             return $this->render('login', [
                 'model' => $model,
             ]);

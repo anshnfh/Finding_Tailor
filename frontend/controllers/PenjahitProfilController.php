@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\LoginFormPenjahit;
+use yii\web\UploadedFile;
+use yii\helpers\Url;
 /**
  * PenjahitProfilController implements the CRUD actions for PenjahitProfil model.
  */
@@ -18,14 +20,7 @@ class PenjahitProfilController extends Controller
      * @inheritdoc
      */
 
-    // $session = Yii::$app->session;
-    // // open a session
-    // $session->open();
-    // // close a session
-    // $session->close();
-
-
-    public function behaviors()
+      public function behaviors()
     {
         return [
             'verbs' => [
@@ -48,27 +43,32 @@ class PenjahitProfilController extends Controller
          // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
          $user_id = Yii::$app->user->identity->id;
-         $user_uname = Yii::$app->user->identity->username;
-         $user_email = Yii::$app->user->identity->email;
+         $user = Yii::$app->user;
+
+
+         // $user_uname = Yii::$app->user->identity->username;
+         // $user_email = Yii::$app->user->identity->email;
          //echo $user_id;
          $query = (new \yii\db\Query())
                 ->select('*')
                 ->from('penjahit_profil')
-                ->where(['user_id' => $user_id]);
+                ->where(['user_id' => $user_id])
+                ->leftJoin('user', '`user`.`id` = `penjahit_profil`.`user_id`');
 
         $command = $query->createCommand(); 
-        $data = $command->queryAll();
+        $data = $command->queryOne();
 
-        // var_dump($user_id = Yii::$app->user); //user->nampilkan isi di model user
+        // var_dump($data);
         // die();
 
-        // /var_dump($data);
+        // var_dump($user_id = Yii::$app->user); //user->nampilkan isi di model user
+
 
         return $this->render('index', [
             'userid' => $user_id,
             'datas' => $data,
-            'useruname' => $user_uname,
-            'usermail' => $user_email
+            // 'useruname' => $user_uname,
+            // 'usermail' => $user_email
         ]);                // var_dump($query);
 
         //     $id_session = $_SESSION["__id"];
@@ -118,54 +118,38 @@ class PenjahitProfilController extends Controller
     public function actionCreate()
     {
         $this->layout = "main_penjahit";
-        $model = new PenjahitProfil();
+        $model = new PenjahitProfil(['scenario' => 'create']);
+        $model->scenario = 'create';
 
         $req = Yii::$app->request->post();
         $user_id = Yii::$app->user->identity->id;
 
         $query = (new \yii\db\Query())
-                ->select('user_id')
+                ->select('*')
                 ->from('penjahit_profil')
-                ->where(['user_id' => $user_id]);
+                ->where(['user_id' => $user_id])
+                ->leftJoin('user', '`user`.`id` = `penjahit_profil`.`user_id`');
 
-        $command = $query->createCommand();
-        $data = $command->queryAll();
 
-        if ($data[0]['user_id'] == $user_id) {
-            echo "Anda sudah mengisi Profil. <button>Edit?</button>";
-            die();
-        }
+        $command = $query->createCommand(); 
+        $data = $command->queryOne();
 
-        if($model->load($req)){
+       if($model->load($req)){
             $model->user_id = $user_id;
-            
+            $image = UploadedFile::getInstance($model, 'pjht_photo');
+            $model->pjht_photo = 'profpics/' . $image->baseName. '.' . $image->extension;
+            $image->saveAs($model->pjht_photo);
+            $model->save();
             if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->pjht_id]);
+                return $this->redirect(['index']);
             }
         }
-
-        
-
-        
-
-        // print_r($model);
-        // var_dump($model);
-        // die();
-
-        // print_r($req['PenjahitProfil']['pjht_fullname']);
-
-        // $model->load(Yii::$app->request->post();
-
-        // if($query){
-            // if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            // return $this->redirect(['view', 'id' => $model->pjht_id]);
-            // }
-        //}
 
         return $this->render('create', [
             'model' => $model,
         ]);
     }
+
 
     /**
      * Updates an existing PenjahitProfil model.
@@ -177,26 +161,43 @@ class PenjahitProfilController extends Controller
     public function actionUpdate($id)
     {
         $this->layout = "main_penjahit";
-        // $model = $this->findModel($id);
-        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
-        //     return $this->redirect(['view', 'id' => $model->pjht_id]);
-        //     }   
-         $user_id = Yii::$app->user->identity->id;
-         //echo $user_id;
-         $query = (new \yii\db\Query())
+    
+        $model = $this->findModel($id);
+        $model->scenario = 'update';       
+
+        $req = Yii::$app->request->post();
+        $user_id = Yii::$app->user->identity->id;
+
+        $query = (new \yii\db\Query())
                 ->select('*')
                 ->from('penjahit_profil')
-                ->where(['user_id' => $user_id]);
+                ->where(['user_id' => $user_id])
+                ->leftJoin('user', '`user`.`id` = `penjahit_profil`.`user_id`');
+
 
         $command = $query->createCommand(); 
-        $data = $command->queryAll();
+        $data = $command->queryOne();
+
+       if($model->load($req)){
+            $model->user_id = $user_id;
+            $image = UploadedFile::getInstance($model, 'pjht_photo');
+            $model->pjht_photo = 'profpics/' . $image->baseName. '.' . $image->extension;
+            $image->saveAs($model->pjht_photo);
+            $model->save();
+            if ($model->save()) {
+                return $this->redirect(['index']);
+            }
+        }
 
         return $this->render('update', [
-            //'model' => $model,
-            'userid' => $user_id,
-            'datas' => $data
+            'model' => $model,
         ]);
+        
     }
+
+
+            
+    
 
     /**
      * Deletes an existing PenjahitProfil model.
@@ -225,6 +226,8 @@ class PenjahitProfilController extends Controller
     //         'model' => $model,
     //     ]);
     // }
+
+   
 
     /**
      * Finds the PenjahitProfil model based on its primary key value.

@@ -19,27 +19,30 @@ CustomAppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?= Html::csrfMetaTags() ?>
+    <?//= Html::csrfMetaTags() ?>
+
     <title><?= Html::encode($this->title) ?></title>
+    <link rel="stylesheet" href="http://localhost/advanced/frontend/web/css/style.css">
+
     <?php $this->head() ?>
 </head>
 <body>
 <?php $this->beginBody() ?>
 
 <!-- Start Header Area -->
-  <header class="default-header">
+  <!-- <header class="default-header"> -->
     <div class="container">
-      <div class="header-wrap">
-        <div class="header-top d-flex justify-content-between align-items-center">
+      <!-- <div class="header-wrap"> -->
+        <!-- <div class="header-top d-flex justify-content-between align-items-center"> -->
           <div class="logo">
             <a href="#home"><img src="http://localhost/jualikan.id/img/logo.png" alt=""></a>
           </div>
             <div class="main-menubar d-flex align-items-center">
             <nav>
-              <a href="http://localhost/findingtailor2/site/index/#home">Home</a>
-              <a href="http://localhost/findingtailor2/site/index/#service">Services</a>
-              <a href="http://localhost/findingtailor2/site/register">SignUp</a>
-              <a href="http://localhost/findingtailor2/site/login">Login</a>
+              <a href="http://localhost/advanced/site/index/#home">Home</a>
+              <a href="http://localhost/advanced/site/index/#service">Services</a>
+              <a href="http://localhost/advanced/site/register">SignUp</a>
+              <a href="http://localhost/advanced/site/login">Login</a>
             </nav>
           </div>
         </div>

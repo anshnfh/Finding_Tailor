@@ -2,6 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\widgets\FileInput;
+use yii\helpers\ArrayHelper;
+use frontend\models\Gender;
+use frontend\models\StatusJahit;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\PenjahitProfil */
@@ -32,21 +36,32 @@ use yii\widgets\ActiveForm;
     ->textInput(['maxlength' => true])
     ->textInput(['placeholder' => $model->getAttributeLabel('Masukkan No. Telepon')])?>
 
-    <?= $form->field($model, 'pjht_photo')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'pjht_jam_oprs_buka')->input('time', ['placeholder'=>'Masukkan Jam Buka']); ?>
 
-    <?= $form->field($model, 'pjht_jam_oprs_buka')->textInput() ?>
+    <?= $form->field($model, 'pjht_jam_oprs_tutup')->input('time', ['placeholder'=>'Masukkan Jam Tutup']); ?>
 
-    <?= $form->field($model, 'pjht_jam_oprs_tutup')->textInput() ?>
+    <?= $form->field($model, 'pjht_jenis')->dropDownList(
+        ArrayHelper::map(Gender::find()->asArray()->all(),'nama_gender','nama_gender'), ['prompt'=>'Pilih Gender'])?>
 
-    <?= $form->field($model, 'pjht_jenis')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'pjht_jml_order')->input('number', ['min'=>1, 'step'=>1, 'placeholder'=>'Pilih Jumlah']); ?>
 
-    <?= $form->field($model, 'pjht_jml_order')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'pjht_durasi_kerja')->textInput(['maxlength' => true])
+    ->textInput(['placeholder' => $model->getAttributeLabel('Masukkan durasi pengerjaan')]); ?>
 
-    <?= $form->field($model, 'pjht_durasi_kerja')->textInput() ?>
+    <?= $form->field($model, 'pjht_spesialisasi')->textInput(['maxlength' => true]) 
+     ->textInput(['placeholder' => $model->getAttributeLabel('Masukkan spesialisasi jahitan')]);?>
 
-    <?= $form->field($model, 'pjht_spesialisasi')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'pjht_status')->dropDownList(
+        ArrayHelper::map(StatusJahit::find()->asArray()->all(),'nama_status','nama_status'), ['prompt'=>'Pilih Status'])?>
 
-    <?= $form->field($model, 'pjht_status')->textInput(['maxlength' => true]) ?>
+   <?= $form->field($model, 'pjht_photo')->widget(FileInput::classname(), [
+            'options' => ['accept' => 'image/*'],
+            'pluginOptions'=>[
+            'allowedFileExtensions'=>['jpg', 'png', 'gif'],
+            'showUpload' => false,
+            'showRemove' => false,
+        ],
+        ]);?> 
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -13,7 +13,6 @@ use kartik\widgets\FileInput;
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
-    <?= $form->field($model, 'pjht_id')->textInput() ?>
 
     <?= $form->field($model, 'hasil_foto_jahit')->widget(FileInput::classname(), [
     	'options' => ['accept' => 'image/*'],
@@ -25,8 +24,6 @@ use kartik\widgets\FileInput;
     ]); ?>
 
     <?= $form->field($model, 'hasil_ket')->textInput(['maxlength' => true]) ?>
-    
-    <?= $form->field($model, 'user_id')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

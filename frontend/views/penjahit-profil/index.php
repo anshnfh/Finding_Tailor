@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\models\PenjahitProfil;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\PenjahitProfilSearch */
@@ -29,18 +30,12 @@ use yii\models\PenjahitProfil;
                                 </div>
                                 <div class="card-body">
                                     <form action="grid-view">
-                                    
                                         <div class="row">
-                                            <?php
-                                                foreach ($datas as $key) {
-                                                    
-                                                
-                                            ?>
                                             <div class="col-md-6 pr-1">
                                                 <div class="form-group">
                                                     <label>Username</label>
                                                     <div class="font-icon-list col-lg-6 col-md-6 col-sm-6 col-6">
-                                                        <?php echo $key['pjht_fullname'];?>  
+                                                        <?php echo $datas['username'];?>  
                                                     </div>
                                                 </div>
                                             </div>
@@ -48,7 +43,7 @@ use yii\models\PenjahitProfil;
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Alamat Email</label>
                                                     <div class="font-icon-list col-lg-6 col-md-6 col-sm-6 col-6">
-                                                        <?php echo $key['pjht_fullname'];?>  
+                                                        <?php echo $datas['email'];?>  
                                                     </div>
                                                 </div>
                                             </div>
@@ -58,7 +53,7 @@ use yii\models\PenjahitProfil;
                                                 <div class="form-group">
                                                     <label>Nama Lengkap</label>
                                                     <div class="font-icon-list col-lg-6 col-md-6 col-sm-6 col-6">
-                                                        <?php echo $key['pjht_fullname'];?>  
+                                                        <?php echo $datas['pjht_fullname'];?>  
                                                     </div>
                                                 </div>
                                             </div>
@@ -68,7 +63,7 @@ use yii\models\PenjahitProfil;
                                                 <div class="form-group">
                                                     <label>Alamat</label>
                                                     <div class="font-icon-list col-lg-6 col-md-6 col-sm-6 col-6">
-                                                        <?php echo $key['pjht_alamat'];?>  
+                                                        <?php echo $datas['pjht_alamat'];?>  
                                                     </div>
                                                 </div>
                                             </div>
@@ -78,7 +73,7 @@ use yii\models\PenjahitProfil;
                                                 <div class="form-group">
                                                     <label>Kecamatan</label>
                                                     <div class="font-icon-list col-lg-6 col-md-6 col-sm-6 col-6">
-                                                        <?php echo $key['pjht_kec'];?>  
+                                                        <?php echo $datas['pjht_kec'];?>  
                                                     </div>
                                                 </div>
                                             </div>
@@ -86,7 +81,7 @@ use yii\models\PenjahitProfil;
                                                 <div class="form-group">
                                                     <label>Kota/Kabupaten</label>
                                                     <div class="font-icon-list col-lg-6 col-md-6 col-sm-6 col-6">
-                                                        <?php echo $key['pjht_kota'];?>  
+                                                        <?php echo $datas['pjht_kota'];?>  
                                                     </div>
                                                 </div>
                                             </div>
@@ -96,7 +91,7 @@ use yii\models\PenjahitProfil;
                                                 <div class="form-group">
                                                     <label>No telpon</label>
                                                     <div class="font-icon-list col-lg-6 col-md-6 col-sm-6 col-6">
-                                                        <?php echo $key['pjht_telp'];?>  
+                                                        <?php echo $datas['pjht_telp'];?>  
                                                     </div>
                                                 </div>
                                             </div>
@@ -104,7 +99,7 @@ use yii\models\PenjahitProfil;
                                                 <div class="form-group">
                                                     <label>Jam Operasi Buka</label>
                                                     <div class="font-icon-list col-lg-6 col-md-6 col-sm-6 col-6">
-                                                        <?php echo $key['pjht_jam_oprs_buka'];?>  
+                                                        <?php echo $datas['pjht_jam_oprs_buka'];?>  
                                                     </div>
                                                 </div>
                                             </div>
@@ -112,14 +107,12 @@ use yii\models\PenjahitProfil;
                                                 <div class="form-group">
                                                     <label>Jam Operasi Tutup</label>
                                                     <div class="font-icon-list col-lg-6 col-md-6 col-sm-6 col-6">
-                                                        <?php echo $key['pjht_jam_oprs_tutup'];?>  
+                                                        <?php echo $datas['pjht_jam_oprs_tutup'];?>  
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <?php 
-                                        }
-                                        ?>
+                                        
                                         <hr>
                                         <h4>Informasi Penjahit</h4>
                                             <div class="row">
@@ -127,7 +120,7 @@ use yii\models\PenjahitProfil;
                                                     <div class="form-group">
                                                         <label>Jahitan Untuk Gender</label>
                                                         <div class="font-icon-list col-lg-6 col-md-6 col-sm-6 col-6">
-                                                            <?php echo $key['pjht_jenis'];?>  
+                                                            <?php echo $datas['pjht_jenis'];?>  
                                                         </div>
                                                     </div>
                                                 </div>
@@ -135,7 +128,7 @@ use yii\models\PenjahitProfil;
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">Range Jumlah Order</label>
                                                         <div class="font-icon-list col-lg-6 col-md-6 col-sm-6 col-6">
-                                                            <?php echo $key['pjht_jml_order'];?>  
+                                                            <?php echo $datas['pjht_jml_order'];?>  
                                                         </div>
                                                     </div>
                                                 </div>
@@ -145,7 +138,7 @@ use yii\models\PenjahitProfil;
                                                     <div class="form-group">
                                                         <label>Perkiraan Durasi Pengerjaan</label>
                                                         <div class="font-icon-list col-lg-6 col-md-6 col-sm-6 col-6">
-                                                            <?php echo $key['pjht_durasi_kerja'];?>  
+                                                            <?php echo $datas['pjht_durasi_kerja'];?>  
                                                         </div>
                                                     </div>
                                                 </div>
@@ -153,7 +146,7 @@ use yii\models\PenjahitProfil;
                                                     <div class="form-group">
                                                         <label>Status Penerimaan Pekerjaan</label>
                                                         <div class="font-icon-list col-lg-6 col-md-6 col-sm-6 col-6">
-                                                            <?php echo $key['pjht_status'];?>  
+                                                            <?php echo $datas['pjht_status'];?>  
                                                         </div>
                                                     </div>
                                                 </div>
@@ -163,7 +156,7 @@ use yii\models\PenjahitProfil;
                                                     <div class="form-group">
                                                         <label>Spesialisasi</label>
                                                         <div class="font-icon-list col-lg-6 col-md-6 col-sm-6 col-6">
-                                                            <?php echo $key['pjht_spesialisasi'];?>  
+                                                            <?php echo $datas['pjht_spesialisasi'];?>  
                                                         </div>
                                                     </div>
                                                 </div>
@@ -171,7 +164,8 @@ use yii\models\PenjahitProfil;
                                             </div>
                                         <!-- <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button> -->
                                         <p>
-                                            <?= Html::a('Update', ['update'], ['class' => 'btn btn-success']) ?>        
+                                            
+                                            <?= Html::a('Update', ['update', 'id' => $datas['pjht_id']], ['class' => 'btn btn-primary']) ?>      
                                         </p>
                                         <div class="clearfix"></div>
                                     </form>
@@ -186,7 +180,10 @@ use yii\models\PenjahitProfil;
                                 <div class="card-body">
                                     <div class="author">
                                         <a href="#">
-                                            <img class="avatar border-gray" src="../assets/img/faces/face-3.jpg" alt="...">
+                                            
+                                                <?php echo Html::img(Yii::$app->request->baseUrl . '/'. $datas['pjht_photo'], ['width' => '300px','height' => '200px']);
+                                                ?>
+                                            
                                             <h2 class="title"><!-- isi nama username --></h2>
                                         </a>
                                     </div>

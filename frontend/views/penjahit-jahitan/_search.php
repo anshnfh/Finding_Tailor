@@ -17,8 +17,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'hasil_id') ?>
 
-    <?= $form->field($model, 'pjht_id') ?>
-
     <?= $form->field($model, 'hasil_foto_jahit') ?>
 
     <?= $form->field($model, 'hasil_ket') ?>

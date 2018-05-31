@@ -8,6 +8,7 @@ use frontend\models\NotifikasiSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
 
 /**
  * NotifikasiController implements the CRUD actions for Notifikasi model.
@@ -37,7 +38,14 @@ class NotifikasiController extends Controller
     {
         $this->layout = "main_penjahit";
         $searchModel = new NotifikasiSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $user_id = Yii::$app->user->identity->id;
+
+        $dataProvider = new ActiveDataProvider([
+        'query' => Notifikasi::find()->andFilterWhere(['user_id' => $user_id])
+       ]);
+
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -68,6 +76,32 @@ class NotifikasiController extends Controller
     {
         $this->layout = "main_penjahit";
         $model = new Notifikasi();
+
+        $user_id = Yii::$app->user->identity->id;
+        $user = Yii::$app->user;
+
+        $query = (new \yii\db\Query())
+                ->select('*')
+                ->from('notifikasi')
+                ->leftJoin('user', '`user`.`id` = `notifikasi`.`user_id`');
+                // ->leftJoin('penjahit_profil', '`penjahit_profil`.`pjht_id` = `penjahit_jahitan`.`pjht_id`')
+                // ->leftJoin('user', '`user`.`id` = `penjahit_profil`.`user_id`');
+
+        $command = $query->createCommand(); 
+        $data = $command->queryAll();
+
+
+        if($model->load(Yii::$app->request->post())){
+            $model->user_id = $user_id;
+            $model->pjht_id = $data[0]['pjht_id'];
+            $model->save();
+            if ($model->save()) {
+                return $this->redirect(['index', [
+                    'datas'=>$data,
+                ]]);
+            }
+
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->notif_id]);

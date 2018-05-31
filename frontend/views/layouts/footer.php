@@ -1,39 +1,31 @@
 <footer class="footer">
-    <div class="container">
-        <div class="container">
-                    <nav>
-                        <ul class="footer-menu">
-                            <li>
-                                <a href="#">
-                                    Home
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Company
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Portfolio
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Blog
-                                </a>
-                            </li>
-                        </ul>
-                        <p class="copyright text-center">
-                            ©
-                            <script>
-                                document.write(new Date().getFullYear())
-                            </script>
-                            <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
-                        </p>
-                    </nav>
-                </div>
-        <!-- <p class="pull-left">&copy; <?//= Html::encode(Yii::$app->name) ?> <?//= date('Y') ?></p> -->
-        <!-- <p class="pull-right"><?//= Yii::powered() ?></p> -->
-    </div>
-</footer>
+        <div class="container-fluid">
+          <nav>
+            <ul>
+              <li>
+                <a href="https://www.creative-tim.com">
+                  Creative Tim
+                </a>
+              </li>
+              <li>
+                <a href="http://presentation.creative-tim.com">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="http://blog.creative-tim.com">
+                  Blog
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <div class="copyright">
+            &copy;
+            <script>
+              document.write(new Date().getFullYear())
+            </script>, Designed by
+            <a href="https://www.invisionapp.com" target="_blank">Invision</a>. Coded by
+            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
+          </div>
+        </div>
+      </footer>

@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use frontend\models\Notifikasi;
-use kartik\date\DatePicker;
+use kartik\widgets\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Notifikasi */
@@ -68,9 +68,7 @@ use kartik\date\DatePicker;
         ]);
     ?>
     
-    <?= $form->field($model, 'user_id')->textInput() ?>
-
-    <?= $form->field($model, 'pjht_id')->textInput() ?>
+   
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

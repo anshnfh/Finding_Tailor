@@ -19,6 +19,16 @@ use Yii;
  */
 class PenjahitProfil extends \yii\db\ActiveRecord
 {
+
+   public function scenarios() {
+        $scenarios = parent::scenarios();
+        $scenarios['create'] = ['pjht_fullname', 'pjht_alamat', 'pjht_kec', 'pjht_kota', 'pjht_telp','pjht_jam_oprs_buka', 'pjht_jam_oprs_tutup', 'pjht_jenis', 'pjht_jml_order', 'pjht_durasi_kerja', 'pjht_spesialisasi', 'pjht_status','user_id', 'pjht_photo'];
+        $scenarios['update'] = ['pjht_fullname', 'pjht_alamat', 'pjht_kec', 'pjht_kota', 'pjht_telp','pjht_jam_oprs_buka', 'pjht_jam_oprs_tutup', 'pjht_jenis', 'pjht_jml_order', 'pjht_durasi_kerja', 'pjht_spesialisasi', 'pjht_status','user_id', 'pjht_photo'];
+                
+        return $scenarios;
+    }
+
+
     /**
      * @inheritdoc
      */
@@ -30,17 +40,19 @@ class PenjahitProfil extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+
     public function rules()
     {
         return [
-            [['pjht_fullname', 'pjht_alamat', 'pjht_kec', 'pjht_kota', 'pjht_telp', 'pjht_photo', 'pjht_jam_oprs_buka', 'pjht_jam_oprs_tutup', 'info_jenis', 'info_jml_order', 'info_durasi_kerja', 'info_spesialisasi', 'info_status','user_id'], 'required'],
+            [['pjht_fullname', 'pjht_alamat', 'pjht_kec', 'pjht_kota', 'pjht_telp','pjht_jam_oprs_buka', 'pjht_jam_oprs_tutup', 'pjht_jenis', 'pjht_jml_order', 'pjht_durasi_kerja', 'pjht_spesialisasi', 'pjht_status','user_id'], 'required'],
             [['pjht_photo'], 'string'],
-            [['info_durasi_kerja'], 'integer'],
+            [['pjht_photo'], 'required', 'message' => 'Photo tidak boleh kosong', 'on' => 'create'],
+            [['pjht_durasi_kerja'], 'integer'],
             [['pjht_jam_oprs_buka', 'pjht_jam_oprs_tutup'], 'safe'],
-            [['pjht_fullname', 'pjht_kec', 'pjht_kota','info_jenis', 'info_jml_order', 'info_spesialisasi'], 'string', 'max' => 100],
+            [['pjht_fullname', 'pjht_kec', 'pjht_kota','pjht_jenis', 'pjht_jml_order', 'pjht_spesialisasi'], 'string', 'max' => 100],
             [['pjht_alamat'], 'string', 'max' => 150],
             [['pjht_telp'], 'string', 'max' => 12],
-            [['info_status'], 'string', 'max' => 50],
+            [['pjht_status'], 'string', 'max' => 50],
         ];
     }
 
@@ -59,12 +71,13 @@ class PenjahitProfil extends \yii\db\ActiveRecord
             'pjht_photo' => 'Photo',
             'pjht_jam_oprs_buka' => 'Jam Operasi Buka',
             'pjht_jam_oprs_tutup' => 'Jam Operasi Tutup',
-            'info_jenis' => 'Info Jenis',
-            'info_jml_order' => 'Info Jml Order',
-            'info_durasi_kerja' => 'Info Durasi Kerja',
-            'info_spesialisasi' => 'Info Spesialisasi',
-            'info_status' => 'Info Status',
+            'pjht_jenis' => 'Info Jenis',
+            'pjht_jml_order' => 'Info Jml Order',
+            'pjht_durasi_kerja' => 'Info Durasi Kerja',
+            'pjht_spesialisasi' => 'Info Spesialisasi',
+            'pjht_status' => 'Info Status',
             'user_id' => 'User ID'
         ];
     }
+
 }

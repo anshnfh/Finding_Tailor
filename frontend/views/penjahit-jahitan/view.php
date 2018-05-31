@@ -29,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'hasil_id',
-            'pjht_id',
             'hasil_foto_jahit:ntext',
             'hasil_ket',
         ],

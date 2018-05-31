@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\data\ActiveDataProvider;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\PenjahitJahitanSearch */
@@ -26,9 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'hasil_id',
-            'pjht_id',
             [
                 'attribute'=>'hasil_foto_jahit',
                 'format'=>'html',

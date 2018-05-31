@@ -11,15 +11,13 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'homeUrl' => '/findingtailor2/admin/',
     'modules' => [],
     'components' => [
-        'request'=>[
-            'csrfParam' => '_crsf-backend',
-            'baseUrl' => '/findingtailor2/admin/',
+        'request' => [
+            'csrfParam' => '_csrf-backend',
         ],
         'user' => [
-            'identityClass' => 'common\models\Admin',
+            'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
         ],
@@ -39,15 +37,14 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-
+        /*
         'urlManager' => [
-            'baseUrl' => '/findingtailor2/admin/',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-
+        */
     ],
     'params' => $params,
 ];

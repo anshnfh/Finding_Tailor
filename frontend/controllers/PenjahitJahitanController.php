@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\data\ActiveDataProvider;
 
 /**
  * PenjahitJahitanController implements the CRUD actions for PenjahitJahitan model.
@@ -37,10 +38,16 @@ class PenjahitJahitanController extends Controller
     public function actionIndex()
     {
         $this->layout = "main_penjahit";
-        $searchModel = new PenjahitJahitanSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+       
 
-        
+        $searchModel = new PenjahitJahitanSearch();
+       // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $user_id = Yii::$app->user->identity->id;
+
+        $dataProvider = new ActiveDataProvider([
+        'query' => PenjahitJahitan::find()->andFilterWhere(['user_id' => $user_id])
+       ]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -72,24 +79,49 @@ class PenjahitJahitanController extends Controller
         $this->layout = "main_penjahit";
         $model = new PenjahitJahitan();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->hasil_id]);
-        }
+        $req = Yii::$app->request->post();
+        $user_id = Yii::$app->user->identity->id;
+        // $model->pjht_id = $this->    $pjht_id;
 
+        $query = (new \yii\db\Query())
+                ->select('*')
+                ->from('penjahit_jahitan')
+                
+                // ->andWhere(['`penjahit_jahitan`.`user_id`' => $user_id])
+                ->leftJoin('penjahit_profil', '`penjahit_profil`.`pjht_id` = `penjahit_jahitan`.`pjht_id`')
+                ->leftJoin('user', '`user`.`id` = `penjahit_profil`.`user_id`');
+                // ->andWhere(['`penjahit_jahitan`.`pjht_id`' => $pjht_id]);
+                
+                // ->leftJoin('user', '`user`.`id` = `penjahit_profil`.`user_id`')
+                // ->leftJoin('penjahit_profil'.'`penjahit_profil`.`user_id` = `penjahit_jahitan`.`user_id`');
+                // ->leftJoin('user', '`user`.`id` = `penjahit_profil`.`user_id`');
 
-        if ($model->load(Yii::$app->request->post())) {
+        $command = $query->createCommand(); 
+        $data = $command->queryAll();
+        
+        // echo($data[0]['pjht_id']);
+
+        // var_dump($data);
+        // die();
+
+        if($model->load($req)){
+            $model->user_id = $user_id;
+            $model->pjht_id = $data[0]['pjht_id'];
             $image = UploadedFile::getInstance($model, 'hasil_foto_jahit');
             $model->hasil_foto_jahit = 'uploads/' . $image->baseName. '.' . $image->extension;
             $image->saveAs($model->hasil_foto_jahit);
             $model->save();
-            return $this->redirect(['view', 'id' => $model->hasil_id]);
+            if ($model->save()) {
+                return $this->redirect(['index', [
+                    'datas'=>$data,
+                ]]);
+            }
         }
 
         return $this->render('create', [
             'model' => $model,
-        ]);
+        ]);        
 
-        
     }
 
     /**
@@ -104,8 +136,18 @@ class PenjahitJahitanController extends Controller
         $this->layout = "main_penjahit";
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->hasil_id]);
+        if($model->load($req)){
+            $model->user_id = $user_id;
+            $model->pjht_id = $data[0]['pjht_id'];
+            $image = UploadedFile::getInstance($model, 'hasil_foto_jahit');
+            $model->hasil_foto_jahit = 'uploads/' . $image->baseName. '.' . $image->extension;
+            $image->saveAs($model->hasil_foto_jahit);
+            $model->save();
+            if ($model->save()) {
+                return $this->redirect(['index', [
+                    'datas' => $data,
+                ]]);
+            }
         }
 
         return $this->render('update', [
@@ -145,20 +187,6 @@ class PenjahitJahitanController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionUpload()
-    {
-        $model = new PenjahitJahitan();
-
-        if (Yii::$app->request->isPost) {
-            $model->hasil_foto_jahit = UploadedFile::getInstance($model, 'hasil_foto_jahit');
-            if ($model->upload()) {
-                // file is uploaded successfully
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        }
-
-        return $this->render('upload', ['model' => $model]);
-    }
 
     public function actionGaleri()
     {

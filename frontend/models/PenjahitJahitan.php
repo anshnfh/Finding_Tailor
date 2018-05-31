@@ -50,4 +50,5 @@ class PenjahitJahitan extends \yii\db\ActiveRecord
             'hasil_ket' => 'Hasil Ket',
         ];
     }
+
 }

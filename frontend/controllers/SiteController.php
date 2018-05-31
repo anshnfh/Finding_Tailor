@@ -137,7 +137,7 @@ class SiteController extends Controller
 
     public function actionRegister(){
         $model = new SignupForm();
-        $this->layout = "main-login";
+        $this->layout = "register";
 
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
