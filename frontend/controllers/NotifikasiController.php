@@ -36,7 +36,7 @@ class NotifikasiController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout = "main_penjahit";
+        $this->layout = "main_penjahit2";
         $searchModel = new NotifikasiSearch();
         // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -61,7 +61,7 @@ class NotifikasiController extends Controller
      */
     public function actionView($id)
     {
-        $this->layout = "main_penjahit";
+        $this->layout = "main_penjahit2";
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -74,7 +74,7 @@ class NotifikasiController extends Controller
      */
     public function actionCreate()
     {
-        $this->layout = "main_penjahit";
+        $this->layout = "main_penjahit2";
         $model = new Notifikasi();
 
         $user_id = Yii::$app->user->identity->id;
@@ -121,7 +121,7 @@ class NotifikasiController extends Controller
      */
     public function actionUpdate($id)
     {
-        $this->layout = "main_penjahit";
+        $this->layout = "main_penjahit2";
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -142,7 +142,7 @@ class NotifikasiController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->layout = "main_penjahit";
+        $this->layout = "main_penjahit2";
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

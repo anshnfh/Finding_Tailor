@@ -12,11 +12,11 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
-    'homeUrl' => '/advanced',
+    'homeUrl' => '/advancedraw',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
-             'baseUrl' => '/advanced',
+             'baseUrl' => '/advancedraw',
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -41,7 +41,7 @@ return [
         ],
         
          'urlManager' => [
-            'baseUrl' => '/advanced',
+            'baseUrl' => '/advancedraw',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [

@@ -9,14 +9,11 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginFormCustomer;
 use common\models\LoginFormPenjahit;
+use common\models\User;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
-use frontend\models\Role;
-use common\models\User;
-use yii\base\Model;
-
 
 /**
  * Site controller
@@ -24,7 +21,7 @@ use yii\base\Model;
 class SiteController extends Controller
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function behaviors()
     {
@@ -40,7 +37,7 @@ class SiteController extends Controller
                     ],
                     [
                         'actions' => ['logout'],
-                        'allow' => true,
+                        // 'allow' => true,
                         'roles' => ['@'],
                     ],
                 ],
@@ -55,7 +52,7 @@ class SiteController extends Controller
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function actions()
     {
@@ -77,24 +74,18 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        // $this->layout = "main2";
-        if (!Yii::$app->user->isGuest) {
+         if (!Yii::$app->user->isGuest) {
             if (Yii::$app->user->identity->level == 1) {
-                $this->layout = "main_penjahit";
+                $this->layout = "main_penjahit2";
                 return $this->render('dashboard-penjahit');
             }else {
                 $this->layout = "main_customer";
                 return $this->render('dashboard-user');
             }
         }else {
-            $this->layout = "main2";
-            return $this->render('index');
+         $this->layout = "main_index";
+        return $this->render('indexnew');
         }
-    }
-
-    public function actionDashboard()
-    {
-        return $this->render('dashboard');
     }
 
     /**
@@ -104,8 +95,6 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        
-
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -124,7 +113,8 @@ class SiteController extends Controller
             $user = User::findByUsername($model1->username);
             if ($user->level == 2) {
                if ($model1->login()) {
-                    return $this->goHome();
+                    $this->layout = "main_customer";
+                    return $this->render('dashboard-user');
                 }
             }
         }
@@ -132,29 +122,7 @@ class SiteController extends Controller
         return $this->render('login', [
             'model' => $model,
             'model1' => $model1,
-        ]);   
-    }
-
-    public function actionRegister(){
-        $model = new SignupForm();
-        $this->layout = "register";
-
-        if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
-                }
-            }
-        }
-        // $this->layout = "main2";
-        return $this->render('register', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionSelamat(){
-        $this->layout = "main-login";
-        return $this->render('telahRegister');
+        ]); 
     }
 
     /**
@@ -209,16 +177,16 @@ class SiteController extends Controller
      */
     public function actionSignup()
     {
-        $this->layout = "main2";
-        $model = new SignupForm();
+       $model = new SignupForm();
+        $this->layout = "main_index";
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
+                    return $this->render('penjahit-profil\index');
                 }
             }
         }
-
+        // $this->layout = "main2";
         return $this->render('signup', [
             'model' => $model,
         ]);

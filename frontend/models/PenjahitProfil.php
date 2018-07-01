@@ -23,7 +23,7 @@ class PenjahitProfil extends \yii\db\ActiveRecord
    public function scenarios() {
         $scenarios = parent::scenarios();
         $scenarios['create'] = ['pjht_fullname', 'pjht_alamat', 'pjht_kec', 'pjht_kota', 'pjht_telp','pjht_jam_oprs_buka', 'pjht_jam_oprs_tutup', 'pjht_jenis', 'pjht_jml_order', 'pjht_durasi_kerja', 'pjht_spesialisasi', 'pjht_status','user_id', 'pjht_photo'];
-        $scenarios['update'] = ['pjht_fullname', 'pjht_alamat', 'pjht_kec', 'pjht_kota', 'pjht_telp','pjht_jam_oprs_buka', 'pjht_jam_oprs_tutup', 'pjht_jenis', 'pjht_jml_order', 'pjht_durasi_kerja', 'pjht_spesialisasi', 'pjht_status','user_id', 'pjht_photo'];
+        $scenarios['update'] = ['pjht_fullname', 'pjht_alamat', 'pjht_kec', 'pjht_kota', 'pjht_telp','pjht_jam_oprs_buka', 'pjht_jam_oprs_tutup', 'pjht_jenis', 'pjht_jml_order', 'pjht_durasi_kerja', 'pjht_spesialisasi', 'pjht_status','user_id'];
                 
         return $scenarios;
     }
@@ -46,7 +46,7 @@ class PenjahitProfil extends \yii\db\ActiveRecord
         return [
             [['pjht_fullname', 'pjht_alamat', 'pjht_kec', 'pjht_kota', 'pjht_telp','pjht_jam_oprs_buka', 'pjht_jam_oprs_tutup', 'pjht_jenis', 'pjht_jml_order', 'pjht_durasi_kerja', 'pjht_spesialisasi', 'pjht_status','user_id'], 'required'],
             [['pjht_photo'], 'string'],
-            [['pjht_photo'], 'required', 'message' => 'Photo tidak boleh kosong', 'on' => 'create'],
+            [['pjht_photo'], 'required', 'message' => 'Foto tidak boleh kosong', 'on' => 'create'],
             [['pjht_durasi_kerja'], 'integer'],
             [['pjht_jam_oprs_buka', 'pjht_jam_oprs_tutup'], 'safe'],
             [['pjht_fullname', 'pjht_kec', 'pjht_kota','pjht_jenis', 'pjht_jml_order', 'pjht_spesialisasi'], 'string', 'max' => 100],

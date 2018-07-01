@@ -5,6 +5,9 @@ use yii\bootstrap\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
+use frontend\assets\LoginAsset;
+
+LoginAsset::register($this);
 
 $this->title = 'Sign In';
 

@@ -38,7 +38,7 @@ class PenjahitProfilController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout = "main_penjahit";
+        $this->layout = "main_penjahit2";
          // $searchModel = new PenjahitProfilSearch();
          // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -104,7 +104,7 @@ class PenjahitProfilController extends Controller
      */
     public function actionView($id)
     {
-        $this->layout = "main_penjahit";
+        $this->layout = "main_penjahit2";
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -117,7 +117,7 @@ class PenjahitProfilController extends Controller
      */
     public function actionCreate()
     {
-        $this->layout = "main_penjahit";
+        $this->layout = "main_penjahit2";
         $model = new PenjahitProfil(['scenario' => 'create']);
         $model->scenario = 'create';
 
@@ -160,7 +160,7 @@ class PenjahitProfilController extends Controller
      */
     public function actionUpdate($id)
     {
-        $this->layout = "main_penjahit";
+        $this->layout = "main_penjahit2";
     
         $model = $this->findModel($id);
         $model->scenario = 'update';       
@@ -208,7 +208,7 @@ class PenjahitProfilController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->layout = "main_penjahit";
+        $this->layout = "main_penjahit2";
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -238,7 +238,7 @@ class PenjahitProfilController extends Controller
      */
     protected function findModel($id)
     {
-        $this->layout = "main_penjahit";
+        $this->layout = "main_penjahit2";
         if (($model = PenjahitProfil::findOne($id)) !== null) {
             return $model;
         }

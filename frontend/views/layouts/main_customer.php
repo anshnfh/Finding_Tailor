@@ -7,136 +7,137 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
-use frontend\assets\AppAsset;
-use frontend\assets\CustomAppAsset;
 use common\widgets\Alert;
 
-AppAsset::register($this);
+use frontend\assets\MaterialAsset;
+
+  // CobaAsset::register($this);
+
+MaterialAsset::register($this);
+
+
 ?>
-<?php //$this->beginPage() ?>
+<?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
-    <!-- <meta charset="<?//= Yii::$app->charset ?>">
+    <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-    <meta charset="<?= Yii::$app->charset ?>" />
-    <link rel="apple-touch-icon" sizes="76x76" href="../frontend/web/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/frontend/web/img/favicon.ico">
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-    <!--     Fonts and icons     -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
-    <!-- CSS Files -->
-    <link href="/advanced/frontend/web/css/bootstrap.min.css" rel="stylesheet" />
-        
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="/findingtailor2/frontend/web/css/demo.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body>
-<?php $this->beginBody() ?>
 
-<div class="wrapper">
-<?= $this->render('sidebar-customer.php')?>
-    <div class="main-panel">
-        <nav class="navbar navbar-expand-lg " color-on-scroll="500">
-            <div class="container-fluid">
-                <a><?= Html::a('Dashboard', ['/site/index'], ['class'=>'navbar-brand'])?></a>
-                <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-bar burger-lines"></span>
-                <span class="navbar-toggler-bar burger-lines"></span>
-                <span class="navbar-toggler-bar burger-lines"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end" id="navigation">
-                    <ul class="nav navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="dropdown">
-                                <i class="nc-icon nc-palette"></i>
-                                <span class="d-lg-none">
 
-                                </span>
-                                </a>
-                        </li>
-                        <!-- <li class="dropdown nav-item">
-                                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                                    <i class="nc-icon nc-planet"></i>
-                                    <span class="notification">5</span>
-                                    <span class="d-lg-none">Notification</span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Notification 1</a>
-                                    <a class="dropdown-item" href="#">Notification 2</a>
-                                    <a class="dropdown-item" href="#">Notification 3</a>
-                                    <a class="dropdown-item" href="#">Notification 4</a>
-                                    <a class="dropdown-item" href="#">Another notification</a>
-                                </ul>
-                            </li> -->
-                    </ul>
-                    <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a>
-                                    <?= Html::a('Profile', ['/site/profile'], ['class'=>'nav-link'])?>
-                                    <span class="no-icon"></span>
-                                </a>
-                            </li>
-                            <?php
-                                NavBar::begin([
-                                // 'brandLabel' => Yii::$app->name,
-                                // 'brandUrl' => Yii::$app->homeUrl,
-                                'options' => [
-                                    'class' => 'navbar-inverse navbar-fixed-top',
-                                ],
-                                ]);
-                                if (Yii::$app->user->isGuest) {
-                        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-                        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-                    } else {
-                    $menuItems[] = '<li>'
-                        . Html::beginForm(['/site/logout'], 'post')
-                        . Html::submitButton(
-                            'Logout (' . Yii::$app->user->identity->username . ')',
-                            ['class' => 'btn btn-link logout']
-                        )
-                        . Html::endForm()
-                        . '</li>';
-                    }
-                    echo Nav::widget([
-                    'options' => ['class' => 'navbar-nav navbar-right'],
-                    'items' => $menuItems,
-                ]);
-                NavBar::end();  
-                    ?>
+<body class="landing-page sidebar-collapse">
+    <?php //$this->beginBody() ?>
+    <nav class="navbar navbar-expand navbar-dark bg-primary flex-column flex-md-row bd-navbar" color-on-scroll="100" id="sectionsNav">
+    <div class="container">
+      <div class="navbar-translate">
+        <a class="navbar-brand" href="https://demos.creative-tim.com/material-kit/index.html">
+          Finding<b>Tailor</b> </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <?php 
+      if (Yii::$app->user->isGuest) {
+      ?>
 
-                        </ul>
-                </div>
-                
-            </div>
-        </nav>
-                
-    <div class="content">
-               <!--v class="container-fluid">-->
-                
-                <?= $this->render('dashboard.php', ['content'=> $content])?>
-                <!-- </div> -->
-            </div>
-        </div>
+        <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="dropdown nav-item">
+            <a href="http://localhost/advancedraw/site/register" class="nav-link">
+              Register
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://localhost/advancedraw/site/login" onclick="scrollToDownload()">
+              Login
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://localhost/advancedraw/site/about" onclick="scrollToDownload()">
+              About
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://localhost/advancedraw/site/Contact" onclick="scrollToDownload()">
+              Contact Us
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    
+   <?php } else{  ?>
+
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="dropdown nav-item">
+            <a href="http://localhost/advancedraw/cart" class="nav-link">
+              Keranjang Belanja
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://localhost/advancedraw/history" onclick="scrollToDownload()">
+              Riwayat Transaksi
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://localhost/advancedraw/site/faq" onclick="scrollToDownload()">
+              FAQ
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://localhost/advancedraw/user-profil" onclick="scrollToDownload()">
+              Profil
+            </a>
+          </li>
+          <li class="nav-item">
+            <!-- <a class="nav-link" href="http://localhost/advancedraw/site/Contact" onclick="scrollToDownload()">
+              Logout
+            </a> -->
+           <?= Html::beginForm(['site/logout'], 'post');?>
+           <?= Html::submitButton('Logout (' . Yii::$app->user->identity->username . ')',['class' => 'btn btn-link logout'])?>
+           <?= Html::endForm();?>
+          </li>
+        </ul>
+      </div>
+
+
+  <?php }
+
+    ?>
+      
     </div>
+  </nav>
 
+<!-- <div class="wrap"> -->
 
-    <!-- <div class="container">
-        <?//= Breadcrumbs::widget([
-        //     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        // ]) ?>
-        <?//= Alert::widget() ?>
+    <!-- <div class="container"> -->
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+        ]) ?>
+        <?= Alert::widget() ?>
         <?= $content ?>
-    </div> -->
-</div>
+    <!-- </div> -->
+<!-- </div> -->
 
+<footer class="footer">
+    <div class="container">
+        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
 
+        <p class="pull-right"><?= Yii::powered() ?></p>
+    </div>
+</footer>
+
+<?php $this->endBody() ?>
 </body>
-<?php $this->render('footer.php')?>
 </html>
-<?php //$this->endPage() ?>
+<?php $this->endPage() ?>

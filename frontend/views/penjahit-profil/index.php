@@ -163,10 +163,7 @@ use yii\helpers\Url;
                                                 
                                             </div>
                                         <!-- <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button> -->
-                                        <p>
-                                            
-                                            <?= Html::a('Update', ['update', 'id' => $datas['pjht_id']], ['class' => 'btn btn-primary']) ?>      
-                                        </p>
+                                       
                                         <div class="clearfix"></div>
                                     </form>
                                 </div>
@@ -187,6 +184,7 @@ use yii\helpers\Url;
                                             <h2 class="title"><!-- isi nama username --></h2>
                                         </a>
                                     </div>
+                                    
                                 </div>
                                 <hr>
                                 <div class="button-container mr-auto ml-auto">

@@ -15,7 +15,7 @@ use yii\filters\VerbFilter;
 class GenderController extends Controller
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function behaviors()
     {
@@ -35,7 +35,6 @@ class GenderController extends Controller
      */
     public function actionIndex()
     {
-        
         $searchModel = new GenderSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

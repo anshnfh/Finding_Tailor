@@ -7,14 +7,19 @@ use yii\grid\GridView;
 /* @var $searchModel frontend\models\GenderSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
+
 $this->title = 'Genders';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="gender-index">
 
+    
+<div class="card">
+    <div class="card-header">
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    </div>
+</div>
     <p>
         <?= Html::a('Create Gender', ['create'], ['class' => 'btn btn-success']) ?>
     </p>

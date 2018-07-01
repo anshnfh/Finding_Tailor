@@ -37,7 +37,7 @@ class PenjahitJahitanController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout = "main_penjahit";
+        $this->layout = "main_penjahit2";
        
 
         $searchModel = new PenjahitJahitanSearch();
@@ -63,7 +63,7 @@ class PenjahitJahitanController extends Controller
      */
     public function actionView($id)
     {
-        $this->layout = "main_penjahit";
+        $this->layout = "main_penjahit2";
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -76,7 +76,7 @@ class PenjahitJahitanController extends Controller
      */
     public function actionCreate()
     {
-        $this->layout = "main_penjahit";
+        $this->layout = "main_penjahit2";
         $model = new PenjahitJahitan();
 
         $req = Yii::$app->request->post();
@@ -133,7 +133,7 @@ class PenjahitJahitanController extends Controller
      */
     public function actionUpdate($id)
     {
-        $this->layout = "main_penjahit";
+        $this->layout = "main_penjahit2";
         $model = $this->findModel($id);
 
         if($model->load($req)){
@@ -164,7 +164,7 @@ class PenjahitJahitanController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->layout = "main_penjahit";
+        $this->layout = "main_penjahit2";
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -179,7 +179,7 @@ class PenjahitJahitanController extends Controller
      */
     protected function findModel($id)
     {
-        $this->layout = "main_penjahit";
+        $this->layout = "main_penjahit2";
         if (($model = PenjahitJahitan::findOne($id)) !== null) {
             return $model;
         }
@@ -190,7 +190,7 @@ class PenjahitJahitanController extends Controller
 
     public function actionGaleri()
     {
-        $this->layout = "main_penjahit";
+        $this->layout = "main_penjahit2";
         return $this->render('galeri');
     }
 }
