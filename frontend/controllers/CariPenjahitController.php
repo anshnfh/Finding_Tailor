@@ -38,15 +38,20 @@ class CariPenjahitController extends \yii\web\Controller
     	$this->layout = "main_customer";
 
     	$pjht_id = $id;
-    	 $query = (new \yii\db\Query())
-    	 		->select('pjht_id' == $id)
-    	 		->from('penjahit_profil');
+    	$query = (new \yii\db\Query())
+    	 		->select('*')
+    	 		->from('penjahit_profil')
+                // ->where(['pjht_id' => $pjht_id])
+                ->leftJoin('user', '`user`.`id` = `penjahit_profil`.`user_id`')
+                ->leftJoin('review', '`review`.`pjht_id` = `penjahit_profil`.`pjht_id`')
+                ->where(['`penjahit_profil`.`pjht_id`' => $pjht_id]);
+        
 
     	 $command = $query->createCommand();
-    	 $data = $command->queryOne();
+    	 $data = $command->queryAll();
 
-    	 // var_dump($data);
-    	 // die();
+        // var_dump($data);
+        // die();
 
     	return $this->render('detail', [
     		'pjht_id' => $pjht_id,

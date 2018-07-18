@@ -20,7 +20,11 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
         "dmstr/yii2-adminlte-asset": "^2.1",
         "kartik-v/yii2-widgets": "*",
-        "ramosisw/yii2-material-dashboard": "dev-master"
+        "ramosisw/yii2-material-dashboard": "dev-master",
+        "kartik-v/yii2-widget-rating": "*",
+        "kartik-v/yii2-checkbox-x": "@dev",
+        "softark/yii2-dual-listbox": "dev-master",
+        "kartik-v/bootstrap-star-rating": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

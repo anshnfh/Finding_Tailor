@@ -1,11 +1,18 @@
-<?php
+    <?php
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\widgets\FileInput;
 use yii\helpers\ArrayHelper;
 use frontend\models\Gender;
+use frontend\models\Spesialisasi;
 use frontend\models\StatusJahit;
+use kartik\checkbox\CheckboxX;
+use softark\duallistbox\DualListbox;
+use frontend\models\SpesialisasiProd;
+use frontend\models\SpesialisasiPjht;
+
+$spesialisasi = ArrayHelper::map(SpesialisasiProd::find()->all(), 'prod_id', 'prod_name');
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\PenjahitProfil */
@@ -48,8 +55,22 @@ use frontend\models\StatusJahit;
     <?= $form->field($model, 'pjht_durasi_kerja')->textInput(['maxlength' => true])
     ->textInput(['placeholder' => $model->getAttributeLabel('Masukkan durasi pengerjaan')]); ?>
 
-    <?= $form->field($model, 'pjht_spesialisasi')->textInput(['maxlength' => true]) 
-     ->textInput(['placeholder' => $model->getAttributeLabel('Masukkan spesialisasi jahitan')]);?>
+    <!-- <?//= $form->field($model, 'pjht_spesialisasi')->textInput(['maxlength' => true]) 
+     //->textInput(['placeholder' => $model->getAttributeLabel('Masukkan spesialisasi jahitan')]);?> -->
+
+    <!-- <?//= $form->field($model1, 'prod_id[]')->checkboxList($spesialisasi, [
+     //  'separator' => '<br>',
+     //  'itemOptions' => [
+     //    'class' => 'spesialisasi'
+     //  ]
+     // ])->label('Spesialisasi <label><input type="checkbox" id="checkAll">Check All</label>');
+    ?> -->
+
+    <?php $model1 = SpesialisasiPjht::find(array('spec_pjht_id' => $model->pjht_id));
+ ?>
+    <?= $form->field($model1, 'spesialisasi')->checkboxList($spesialisasi) ?>
+
+    <?php   $this->registerJs("jQuery('#checkAll').change(function(){jQuery('.spesialisasi').prop('checked',this.checked?'checked':'');})");?>
 
     <?= $form->field($model, 'pjht_status')->dropDownList(
         ArrayHelper::map(StatusJahit::find()->asArray()->all(),'nama_status','nama_status'), ['prompt'=>'Pilih Status'])?>

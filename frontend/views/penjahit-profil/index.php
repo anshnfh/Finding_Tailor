@@ -151,17 +151,19 @@ use yii\helpers\Url;
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <!-- <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label>Spesialisasi</label>
                                                         <div class="font-icon-list col-lg-6 col-md-6 col-sm-6 col-6">
-                                                            <?php echo $datas['pjht_spesialisasi'];?>  
+                                                            <?php //echo $datas['pjht_spesialisasi'];?>  
                                                         </div>
                                                     </div>
                                                 </div>
                                                 
                                             </div>
+ -->
+                                            <?= Html::a('Update Profil', ['update', 'id' => $datas['pjht_id']], ['class' => 'btn btn-success pull-right']) ?>
                                         <!-- <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button> -->
                                        
                                         <div class="clearfix"></div>

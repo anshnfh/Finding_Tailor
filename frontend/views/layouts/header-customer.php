@@ -63,7 +63,7 @@ use common\widgets\Alert;
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="http://localhost/advancedraw/history" onclick="scrollToDownload()">
+            <a class="nav-link" href="http://localhost/advancedraw/riwayat" onclick="scrollToDownload()">
               Riwayat Transaksi
             </a>
           </li>

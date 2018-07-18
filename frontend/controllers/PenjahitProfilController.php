@@ -4,13 +4,17 @@ namespace frontend\controllers;
 
 use Yii;
 use frontend\models\PenjahitProfil;
+
 use frontend\models\PenjahitProfilSearch;
+use frontend\models\SpesialisasiPjht;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\LoginFormPenjahit;
 use yii\web\UploadedFile;
 use yii\helpers\Url;
+
+
 /**
  * PenjahitProfilController implements the CRUD actions for PenjahitProfil model.
  */
@@ -121,6 +125,8 @@ class PenjahitProfilController extends Controller
         $model = new PenjahitProfil(['scenario' => 'create']);
         $model->scenario = 'create';
 
+        $model1 = new SpesialisasiPjht();
+
         $req = Yii::$app->request->post();
         $user_id = Yii::$app->user->identity->id;
 
@@ -134,19 +140,20 @@ class PenjahitProfilController extends Controller
         $command = $query->createCommand(); 
         $data = $command->queryOne();
 
-       if($model->load($req)){
+       if($model->load($req) && $model1->load($req)){
             $model->user_id = $user_id;
             $image = UploadedFile::getInstance($model, 'pjht_photo');
             $model->pjht_photo = 'profpics/' . $image->baseName. '.' . $image->extension;
             $image->saveAs($model->pjht_photo);
             $model->save();
-            if ($model->save()) {
+            if ($model->save() && $model1->save()) {
                 return $this->redirect(['index']);
             }
         }
 
         return $this->render('create', [
             'model' => $model,
+            'model1' => $model1,
         ]);
     }
 
@@ -161,10 +168,38 @@ class PenjahitProfilController extends Controller
     public function actionUpdate($id)
     {
         $this->layout = "main_penjahit2";
-    
-        $model = $this->findModel($id);
-        $model->scenario = 'update';       
 
+        $model = $this->findModel($id);
+
+        
+
+        //  if(isset($_POST['TestA'])&&isset($_POST['TestB']))
+        //     {
+        //          $model->attributes=$_POST['TestA'];
+
+        //          $modelB = TestB::model()->findByAttributes(array('testid'=>$model->testid));
+
+        //          if ($modelB == null) {
+        //            $modelB = new TestB;
+        //            $modelB->testid = $model->testid;
+        //          }
+
+        //          $model_B->attributes=$_POST['TestB'];
+
+
+        //          if ($model_A->save()) {
+        //             $model_B->save();
+        //          }
+
+        //         $this->render('update',array(
+        //             'model'=>$model,
+        //         ));
+        // }
+
+        $model->scenario = 'update';
+
+        $model1 = SpesialisasiPjht::find();
+       
         $req = Yii::$app->request->post();
         $user_id = Yii::$app->user->identity->id;
 
@@ -174,11 +209,35 @@ class PenjahitProfilController extends Controller
                 ->where(['user_id' => $user_id])
                 ->leftJoin('user', '`user`.`id` = `penjahit_profil`.`user_id`');
 
-
         $command = $query->createCommand(); 
         $data = $command->queryOne();
 
-       if($model->load($req)){
+        
+
+        // SpesialisasiPjht::model()->findByAttributes(array('spec_pjht_id' => $model->pjht_id));
+
+        $model1 = SpesialisasiPjht::find(array('spec_pjht_id' => $model->pjht_id));
+        
+        // var_dump($model1);
+        // die();
+       
+       if($model->load($req) && $model->load($req)){ 
+            
+            $model->attributes=$_POST[$model];
+            $model1 = SpesialisasiPjht::find(array('spec_pjht_id' => $model->spec_pjht_id));
+
+            if($model1 == null){
+                $model1 = new SpesialisasiPjht();
+                $model1->prod_id = $model->pjht_id;
+
+            }
+
+            $model1->attributes=$_POST[$model1];
+
+            if($model->save()){
+                $model1->save();
+            }
+
             $model->user_id = $user_id;
             $image = UploadedFile::getInstance($model, 'pjht_photo');
             $model->pjht_photo = 'profpics/' . $image->baseName. '.' . $image->extension;
@@ -191,6 +250,7 @@ class PenjahitProfilController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'model1' => $model1,
         ]);
         
     }
